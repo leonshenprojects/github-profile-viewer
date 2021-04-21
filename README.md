@@ -1,4 +1,4 @@
-# hello-world
+# Github profile viewer
 
 ## Project setup
 ```
