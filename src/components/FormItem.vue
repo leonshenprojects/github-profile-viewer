@@ -11,6 +11,13 @@
 		<div class="FormItem__content">
 			<slot />
 		</div>
+
+        <div
+            v-if="error"
+            class="FormItem__error"
+        >
+            <p> {{ error }} </p>
+        </div>
     </div>
 </template>
 
@@ -18,6 +25,10 @@
     export default {
         name: 'FormItem',
         props: {
+			error: {
+				type: String,
+				default: '',
+			},
 			label: {
 				type: String,
 				default: '',
