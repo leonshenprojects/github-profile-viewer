@@ -13,11 +13,7 @@
         },
         methods: {
             ...mapMutations([
-                'setcurrentPage',
             ]),
-        },
-        created() {
-            this.setcurrentPage('intro');
         },
     }
 </script>

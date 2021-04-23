@@ -104,12 +104,8 @@
         methods: {
             ...mapMutations([
                 'clearError',
-                'setcurrentPage',
                 'updateData',
             ]),
-        },
-        created() {
-            this.setcurrentPage('details');
         },
     }
 </script>

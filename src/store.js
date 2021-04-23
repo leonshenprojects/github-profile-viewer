@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const pages = ['intro', 'details', 'confirmation', 'profile'];
+
 export default new Vuex.Store({
     state: {
         currentPage: 'intro',
@@ -12,13 +14,20 @@ export default new Vuex.Store({
             userName: '',
         },
         errors: [],
+        previousPage: null,
     },
     mutations: {
         clearError(state, fieldName) {
             state.errors = state.errors.filter(error => error.fieldName !== fieldName);
         },
-		setcurrentPage(state, step) {
+        clearErrors(state) {
+            state.errors = [];
+        },
+		setCurrentPage(state, step) {
 			state.currentPage = step;
+		},
+		setPreviousPage(state, step) {
+			state.previousPage = step;
 		},
         updateData(state, newData) {
             state.data = {
@@ -54,9 +63,10 @@ export default new Vuex.Store({
         hasErrors: (state) => {
             return state.errors.length > 0;
         },
+        hasNoData: (state) => {
+            return Object.values(state.data).every((value) => !value);
+        },
 		nextPage: (state) => {
-            const pages = ['intro', 'details', 'confirmation', 'profile'];
-
             const currentPageIndex = pages.findIndex(page => page === state.currentPage);
 
             if (currentPageIndex === -1

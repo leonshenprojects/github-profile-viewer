@@ -14,15 +14,16 @@
         >
             <div class="footer__buttons">
                 <button
-                    v-if="showBackButton" @click="handleBack"
+                    v-if="showBackButton"
                     class="footer__button footer__button--back"
+                    @click="handleBack"
                 >
                     Back
                 </button>
 
                 <button
-                    @click="handleNext"
                     class="footer__button"
+                    @click="handleNext"
                 >
                     {{ nextButtonLabel }}
                 </button>
@@ -40,10 +41,12 @@
         computed: {
 			...mapGetters([
                 'hasErrors',
+                'hasNoData',
                 'nextPage',
 			]),
             ...mapState([
                 'currentPage',
+                'previousPage',
             ]),
             nextButtonLabel() {
                 switch (this.currentPage) {
@@ -64,9 +67,12 @@
         },
         methods: {
             ...mapMutations([
+                'clearErrors',
+                'setCurrentPage',
                 'validatePageData',
             ]),
             handleBack() {
+                this.clearErrors();
                 router.go(-1);
             },
             handleNext() {
@@ -78,7 +84,23 @@
 
                 router.push(this.nextPage);
             },
-        }
+        },
+        watch: {
+            '$route' (to) {
+                this.setCurrentPage(to.name);
+                this.clearErrors();
+            }
+        },
+        created() {
+            if (this.$route.name === 'intro') {
+                this.setCurrentPage('intro');
+                return;
+            }
+
+            if (this.hasNoData) {
+                router.push('/');
+            }
+        },
     }
 </script>
 
