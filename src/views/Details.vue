@@ -43,7 +43,7 @@
                     />      
                 </FormItem>
 
-                <Navigation />
+                <Navigation nextButtonType="submit" />
             </form>
         </div>
     </transition>

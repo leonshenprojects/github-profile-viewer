@@ -91,7 +91,7 @@
                     setTimeout(() => {
                         router.push('details');
                     }, 800);
-                    
+
                     return;
                 }
 
@@ -104,7 +104,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     @import './../../static/css/_mediaqueries.scss';
     @import './../../static/css/_variables.scss';
 
@@ -124,7 +124,7 @@
     }
 
     .Navigation__button {
-        background-color: lightblue;
+        background-color: $lightBlue;
     }
 
     .Navigation__button--back {

@@ -32,8 +32,6 @@
         },
         watch: {
             '$route' (to) {
-                this.setShow(false)
-
                 if (to.name === '/') {
                     this.setCurrentPage('/');
                     return;
@@ -57,6 +55,7 @@
 
 <style lang="scss">
     @import './static/css/_mediaqueries.scss';
+    @import './static/css/_variables.scss';
 
     html, body {
         height: 100%;
@@ -69,7 +68,7 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        color: #2c3e50;
+        color: $black;
     }
 
     .header {

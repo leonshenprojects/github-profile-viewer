@@ -86,6 +86,7 @@
 
     .Profile__avatar {
         width: 70%;
+        min-height: 100%;
         margin: auto;
     }
 </style>

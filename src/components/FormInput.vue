@@ -46,7 +46,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     @import './../static/css/_variables.scss';
 
 	.FormInput {
@@ -61,7 +61,7 @@
         outline: none;
 		
 		&.is-invalid {
-			border-color: red;
+			border-color: $red;
 		}
 	}
 </style>

@@ -42,7 +42,7 @@
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
     @import './../static/css/_mediaqueries.scss';
     @import './../static/css/_variables.scss';
 
@@ -70,6 +70,6 @@
 	}
 
     .FormItem__error {
-        color: red;
+        color: $red;
     }
 </style>
