@@ -12,6 +12,8 @@ export default new Vuex.Store({
             firstName: '',
             lastName: '',
             userName: '',
+            email: '',
+            agreeWithTerms: false,
         },
         errors: [],
         previousPage: null,

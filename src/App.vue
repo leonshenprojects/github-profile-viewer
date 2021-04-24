@@ -7,28 +7,6 @@
         <main class="main">
             <router-view/>
         </main>
-
-        <footer
-            v-if="showFooter"
-            class="footer"
-        >
-            <div class="footer__buttons">
-                <button
-                    v-if="showBackButton"
-                    class="footer__button footer__button--back"
-                    @click="handleBack"
-                >
-                    Back
-                </button>
-
-                <button
-                    class="footer__button"
-                    @click="handleNext"
-                >
-                    {{ nextButtonLabel }}
-                </button>
-            </div>
-        </footer>
     </div>
 </template>
 
@@ -40,50 +18,17 @@
         name: 'App',
         computed: {
 			...mapGetters([
-                'hasErrors',
                 'hasNoData',
-                'nextPage',
 			]),
             ...mapState([
                 'currentPage',
-                'previousPage',
             ]),
-            nextButtonLabel() {
-                switch (this.currentPage) {
-                    case 'intro':
-                        return 'Let\'s Go!';
-                    case 'confirmation':
-                        return 'Submit';
-                    default:
-                        return 'Next';
-                }
-            },
-            showBackButton() {
-                return this.currentPage !== 'intro';
-            },
-            showFooter() {
-                return this.currentPage !== 'profile';
-            },
         },
         methods: {
             ...mapMutations([
                 'clearErrors',
                 'setCurrentPage',
-                'validatePageData',
             ]),
-            handleBack() {
-                this.clearErrors();
-                router.go(-1);
-            },
-            handleNext() {
-                this.validatePageData();
-
-                if (this.hasErrors) {
-                    return;
-                }
-
-                router.push(this.nextPage);
-            },
         },
         watch: {
             '$route' (to) {
@@ -138,30 +83,5 @@
 
     .main {
         padding: 0px 20px;
-    }
-
-    .footer {
-        display: flex;
-        justify-content: center;
-        flex: 1;
-        padding-top: 40px;
-
-		@media #{$tablet-up} {
-			height: 200px;
-		}
-    }
-
-    .footer__buttons {
-        position: relative;
-    }
-
-    .footer__button {
-        background-color: lightblue;
-    }
-
-    .footer__button--back {
-        position: absolute;
-        top: 0;
-        right: 110%;
     }
 </style>
