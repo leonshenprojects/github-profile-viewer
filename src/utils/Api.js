@@ -1,30 +1,29 @@
-async function get(url) {
-	const headers = {
-		'Accept': 'application/vnd.github.v3+json',
-		'X-Requested-With': 'XMLHttpRequest',
-	};
+function get(url) {
+    const request = new XMLHttpRequest();
 
-	const request = await fetch(url, {
-        method: 'GET',
-        headers: headers,
-    });
+    request.open('GET', url);
+    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    request.setRequestHeader('Accept', 'application/vnd.github.v3+json');
 
-	if (!request.ok) {
-		throw {
-			request,
-			response: await request.json(),
+	return new Promise((resolve = () => {}, reject = () => {}) => {
+		request.onreadystatechange = function () {
+			if (request.readyState === 4) {
+				const responseBody = JSON.parse(request.responseText);
+
+				if (isRequestStatusSuccessful(request.status)) {
+					resolve(responseBody, request);
+				} else {
+					reject(request);
+				}
+			}
 		};
-	}
 
-	return getBody(request);
+        request.send();
+	});
 }
 
-async function getBody(request) {
-	try {
-		return await request.json();
-	} catch {
-		return null;
-	}
+function isRequestStatusSuccessful(requestStatus) {
+	return requestStatus >= 200 && requestStatus < 400;
 }
 
 export default { get }
