@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div v-if="show" class="Details">
+        <div v-if="showStep" class="Details">
             <form
                 class="Details__form"
                 ref="form"
@@ -73,7 +73,7 @@
 			]),
             ...mapState([
                 'data',
-                'show',
+                'showStep',
             ]),
             firstName: {
                 get() {
@@ -112,12 +112,12 @@
         methods: {
             ...mapMutations([
                 'clearError',
-                'setShow',
+                'setShowStep',
                 'updateData',
             ]),
         },
         mounted() {
-            this.setShow(true);
+            this.setShowStep(true);
         },
     }
 </script>

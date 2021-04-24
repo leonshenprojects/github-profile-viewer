@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div v-if="show" class="Intro">
+        <div v-if="showStep" class="Intro">
             <p class="Intro__text">
                 Fill in your details and we'll show you some information about your Github profile.
             </p>
@@ -25,19 +25,19 @@
                 'nextPage',
 			]),
             ...mapState([
-                'show',
+                'showStep',
             ]),
         },
         methods: {
             ...mapMutations([
-                'setShow',
+                'setShowStep',
             ]),
             handleClick() {
                 router.push(this.nextPage);
             },
         },
         mounted() {
-            this.setShow(true);
+            this.setShowStep(true);
         },
     }
 </script>

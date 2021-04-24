@@ -27,7 +27,7 @@
         methods: {
             ...mapMutations([
                 'setCurrentPage',
-                'setShow',
+                'setShowStep',
             ]),
         },
         watch: {

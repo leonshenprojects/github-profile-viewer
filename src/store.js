@@ -18,11 +18,11 @@ export default new Vuex.Store({
         },
         errors: [],
         profile: null,
-        show: false,
+        showStep: false,
     },
     mutations: {
-        setShow(state, show) {
-            state.show = show;
+        setShowStep(state, showStep) {
+            state.showStep = showStep;
         },
         addError(state, error) {
             state.errors = [

@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div v-if="show" class="Profile">
+        <div v-if="showStep" class="Profile">
             <img class="Profile__avatar" :src="profile.avatar_url"/>
 
             <table class="Profile__data">
@@ -39,7 +39,7 @@
         computed: {
             ...mapState([
                 'profile',
-                'show',
+                'showStep',
             ]),
 			...mapGetters([
                 'nextPage',
@@ -47,14 +47,14 @@
         },
         methods: {
             ...mapMutations([
-                'setShow',
+                'setShowStep',
             ]),
             handleClick() {
                 router.push(this.nextPage);
             },
         },
         mounted() {
-            this.setShow(true);
+            this.setShowStep(true);
         },
     }
 </script>

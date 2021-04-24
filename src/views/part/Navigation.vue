@@ -62,10 +62,10 @@
         },
         methods: {
             ...mapMutations([
-                'setShow',
+                'setShowStep',
             ]),
             handleBack() {
-                this.setShow(false);
+                this.setShowStep(false);
                 setTimeout(() => {
                     router.push(this.previousPage);
                 }, 800);
@@ -79,7 +79,7 @@
                     const isSuccess = await this.$store.dispatch('fetchProfile');
 
                     if (isSuccess) {
-                        this.setShow(false);
+                        this.setShowStep(false);
                         setTimeout(() => {
                             router.push(this.nextPage);
                         }, 800);
@@ -87,7 +87,7 @@
                         return
                     }
 
-                    this.setShow(false);
+                    this.setShowStep(false);
                     setTimeout(() => {
                         router.push('details');
                     }, 800);
@@ -95,7 +95,7 @@
                     return;
                 }
 
-                this.setShow(false);
+                this.setShowStep(false);
                 setTimeout(() => {
                     router.push(this.nextPage);
                 }, 800);
