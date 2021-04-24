@@ -1,50 +1,52 @@
 <template>
-    <div class="Details">
-        <form
-            class="Details__form"
-            ref="form"
-            @submit.prevent
-        >
-            <FormItem
-                label-for="firstName"
-                label="First Name"
+    <transition name="fade">
+        <div v-if="show" class="Details">
+            <form
+                class="Details__form"
+                ref="form"
+                @submit.prevent
             >
-                <FormInput
-                    id="firstName"
-                    v-model="firstName"
-                    :required="true"
-                />      
-            </FormItem>
+                <FormItem
+                    label-for="firstName"
+                    label="First Name"
+                >
+                    <FormInput
+                        id="firstName"
+                        v-model="firstName"
+                        :required="true"
+                    />      
+                </FormItem>
 
-            <FormItem
-                label-for="lastName"
-                label="Last Name"
-            >
-                <FormInput
-                    id="lastName"
-                    v-model="lastName"
-                    :required="true"
-                />      
-            </FormItem>
+                <FormItem
+                    label-for="lastName"
+                    label="Last Name"
+                >
+                    <FormInput
+                        id="lastName"
+                        v-model="lastName"
+                        :required="true"
+                    />      
+                </FormItem>
 
-            <FormItem
-                label-for="username"
-                label="Github Username"
-				:state="!hasErrorForField('username')"
-				:error="getErrorForField('username')"
-            >
-                <FormInput
-                    id="username"
-                    v-model="username"
-                    :required="true"
-					:state="!hasErrorForField('username')"
-					@input="clearError('username')"
-                />      
-            </FormItem>
+                <FormItem
+                    label-for="username"
+                    label="Github Username"
+                    :state="!hasErrorForField('username')"
+                    :error="getErrorForField('username')"
+                >
+                    <FormInput
+                        id="username"
+                        v-model="username"
+                        :required="true"
+                        :state="!hasErrorForField('username')"
+                        @input="clearError('username')"
+                    />      
+                </FormItem>
 
-            <Navigation />
-        </form>
-    </div>
+                <Navigation />
+            </form>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -71,6 +73,7 @@
 			]),
             ...mapState([
                 'data',
+                'show',
             ]),
             firstName: {
                 get() {
@@ -109,8 +112,12 @@
         methods: {
             ...mapMutations([
                 'clearError',
+                'setShow',
                 'updateData',
             ]),
+        },
+        mounted() {
+            this.setShow(true);
         },
     }
 </script>

@@ -1,17 +1,18 @@
 <template>
-<div class="Intro">
-    <p class="Intro__text">
-        Fill in your details and we'll show you some information about your Github profile.
-    </p>
+    <transition name="fade">
+        <div v-if="show" class="Intro">
+            <p class="Intro__text">
+                Fill in your details and we'll show you some information about your Github profile.
+            </p>
 
-    <Navigation />
-    
-</div>
+            <Navigation />
+        </div>
+    </transition>
 </template>
 
 <script>
     import router from './../router';
-	import { mapGetters } from 'vuex';
+	import { mapGetters, mapMutations, mapState } from 'vuex';
     import Navigation from './part/Navigation';
 
     export default {
@@ -23,11 +24,20 @@
 			...mapGetters([
                 'nextPage',
 			]),
+            ...mapState([
+                'show',
+            ]),
         },
         methods: {
+            ...mapMutations([
+                'setShow',
+            ]),
             handleClick() {
                 router.push(this.nextPage);
             },
+        },
+        mounted() {
+            this.setShow(true);
         },
     }
 </script>

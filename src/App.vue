@@ -27,11 +27,14 @@
         methods: {
             ...mapMutations([
                 'setCurrentPage',
+                'setShow',
             ]),
         },
         watch: {
             '$route' (to) {
-                if (to.name === 'intro') {
+                this.setShow(false)
+
+                if (to.name === '/') {
                     this.setCurrentPage('/');
                     return;
                 }
@@ -40,7 +43,7 @@
             }
         },
         created() {
-            if (this.$route.name === 'intro') {
+            if (this.$route.name === '/') {
                 this.setCurrentPage('/');
                 return;
             }
@@ -86,5 +89,13 @@
 
     .main {
         padding: 0px 20px;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.8s;
+    }
+
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
     }
 </style>

@@ -24,7 +24,7 @@
 
 <script>
     import router from '../../router';
-	import { mapGetters, mapState } from 'vuex';
+	import { mapGetters, mapMutations, mapState } from 'vuex';
 	
 	export default {
 		props: {
@@ -61,8 +61,14 @@
             },
         },
         methods: {
+            ...mapMutations([
+                'setShow',
+            ]),
             handleBack() {
-                router.push(this.previousPage);
+                this.setShow(false);
+                setTimeout(() => {
+                    router.push(this.previousPage);
+                }, 800);
             },
             async handleNext() {
                 if (this.$parent.$refs.form && !this.$parent.$refs.form.reportValidity()) {
@@ -73,15 +79,26 @@
                     const isSuccess = await this.$store.dispatch('fetchProfile');
 
                     if (isSuccess) {
-                        router.push(this.nextPage);
+                        this.setShow(false);
+                        setTimeout(() => {
+                            router.push(this.nextPage);
+                        }, 800);
+
                         return
                     }
 
-                    router.push('details');
+                    this.setShow(false);
+                    setTimeout(() => {
+                        router.push('details');
+                    }, 800);
+                    
                     return;
                 }
 
-                router.push(this.nextPage);
+                this.setShow(false);
+                setTimeout(() => {
+                    router.push(this.nextPage);
+                }, 800);
             },
         },
     }

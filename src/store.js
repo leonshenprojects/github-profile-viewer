@@ -18,8 +18,12 @@ export default new Vuex.Store({
         },
         errors: [],
         profile: null,
+        show: false,
     },
     mutations: {
+        setShow(state, show) {
+            state.show = show;
+        },
         addError(state, error) {
             state.errors = [
                 ...state.errors,

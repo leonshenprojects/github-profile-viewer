@@ -1,33 +1,35 @@
 <template>
-    <div class="Confirmation">
-        <form
-            class="Confirmation__form"
-            ref="form"
-            @submit.prevent
-        >
-            <FormItem
-                label-for="email"
-                label="Email"
+    <transition name="fade">
+        <div v-if="show" class="Confirmation">
+            <form
+                class="Confirmation__form"
+                ref="form"
+                @submit.prevent
             >
-                <FormInput
-                    id="email"
-                    v-model="email"
-                    type="email"
-                    :required="true"
-                />      
-            </FormItem>
-                <FormCheckbox
-                    v-model="agreeWithTerms"
-                    text="I agree with all terms and services."
-                    :required="true"
-                />
-            <FormItem>
+                <FormItem
+                    label-for="email"
+                    label="Email"
+                >
+                    <FormInput
+                        id="email"
+                        v-model="email"
+                        type="email"
+                        :required="true"
+                    />      
+                </FormItem>
+                    <FormCheckbox
+                        v-model="agreeWithTerms"
+                        text="I agree with all terms and services."
+                        :required="true"
+                    />
+                <FormItem>
 
-            </FormItem>
+                </FormItem>
 
-            <Navigation nextButtonType="submit" />
-        </form>
-    </div>
+                <Navigation nextButtonType="submit" />
+            </form>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -56,6 +58,7 @@
 			]),
             ...mapState([
                 'data',
+                'show',
             ]),
             agreeWithTerms: {
                 get() {
@@ -82,8 +85,12 @@
         },
         methods: {
             ...mapMutations([
+                'setShow',
                 'updateData',
             ]),
+        },
+        mounted() {
+            this.setShow(true);
         },
     }
 </script>
