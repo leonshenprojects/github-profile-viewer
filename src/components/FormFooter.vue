@@ -54,8 +54,18 @@
                 this.clearErrors();
                 router.go(-1);
             },
-            handleNext() {
+            async handleNext() {
                 if (this.$parent.$refs.form && !this.$parent.$refs.form.reportValidity()) {
+                    return;
+                }
+
+                if (this.currentPage === 'confirmation') {
+                    const isSuccess = await this.$store.dispatch('fetchProfile');
+
+                    if (isSuccess) {
+                        router.push(this.nextPage);
+                    }
+
                     return;
                 }
 

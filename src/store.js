@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Api from './utils/Api.js';
 
 Vue.use(Vuex)
 
@@ -11,12 +12,13 @@ export default new Vuex.Store({
         data: {
             firstName: '',
             lastName: '',
-            userName: '',
+            username: '',
             email: '',
             agreeWithTerms: false,
         },
         errors: [],
         previousPage: null,
+        profile: null,
     },
     mutations: {
         clearError(state, fieldName) {
@@ -25,12 +27,22 @@ export default new Vuex.Store({
         clearErrors(state) {
             state.errors = [];
         },
+        clearProfile(state) {
+            state.profile = null;
+        },
 		setCurrentPage(state, step) {
 			state.currentPage = step;
 		},
 		setPreviousPage(state, step) {
 			state.previousPage = step;
 		},
+        setProfile(state, profile) {
+            if (profile.login !== state.data.username) {
+                return;
+            }
+
+            state.profile = profile;
+        },
         updateData(state, newData) {
             state.data = {
                 ...state.data,
@@ -47,7 +59,23 @@ export default new Vuex.Store({
         },
     },
     actions: {
+		fetchProfile: async ({ commit, state }) => {
+            commit('clearProfile');
 
+            try {
+                const response = await Api.get(`https://api.github.com/users/${state.data.username}`);
+                commit('setProfile', response);
+
+                if (state.profile) {
+                    return true;
+                }
+
+                return false;
+            } catch (e) {
+                console.log('Something has gone wrong. Please try again later.', e);
+                return false;
+            }
+		},
     },
     getters: {
         getErrorForField: (state) => (fieldName) => {
