@@ -12,6 +12,7 @@
             <button
                 v-if="nextPage"
                 class="Navigation__button"
+                :disabled="disableNextButton"
                 :type="nextButtonType"
                 @click="handleNext"
             >
@@ -23,7 +24,7 @@
 
 <script>
     import router from '../../router';
-	import { mapGetters, mapMutations, mapState } from 'vuex';
+	import { mapGetters, mapState } from 'vuex';
 	
 	export default {
 		props: {
@@ -41,6 +42,13 @@
             ...mapState([
                 'currentPage',
             ]),
+            disableNextButton() {
+                if (this.currentPage === '/') {
+                    return false;
+                }
+
+                return this.hasErrors;
+            },
             nextButtonLabel() {
                 switch (this.currentPage) {
                     case '/':
@@ -53,11 +61,7 @@
             },
         },
         methods: {
-            ...mapMutations([
-                'clearErrors',
-            ]),
             handleBack() {
-                this.clearErrors();
                 router.push(this.previousPage);
             },
             async handleNext() {

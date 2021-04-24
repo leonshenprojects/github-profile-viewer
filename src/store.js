@@ -29,9 +29,6 @@ export default new Vuex.Store({
         clearError(state, fieldName) {
             state.errors = state.errors.filter(error => error.fieldName !== fieldName);
         },
-        clearErrors(state) {
-            state.errors = [];
-        },
         clearProfile(state) {
             state.profile = null;
         },
@@ -66,7 +63,7 @@ export default new Vuex.Store({
                     fieldName: 'username',
                     message: 'No match found for this username.',
                 });
-                
+
                 return false;
             }
 		},
