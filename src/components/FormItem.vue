@@ -58,6 +58,7 @@
 		display: block;
 		margin-bottom: 10px;
 		font-size: 16px;
+        font-weight: 600;
 		line-height: 18px;
 		color: $black;
 	}
@@ -67,4 +68,8 @@
 		font-size: 16px;
 		line-height: 27px;
 	}
+
+    .FormItem__error {
+        color: red;
+    }
 </style>

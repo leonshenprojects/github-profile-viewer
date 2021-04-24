@@ -4,12 +4,7 @@
         Fill in your details and we'll show you some information about your Github profile.
     </p>
 
-    <button
-        class="Intro__button"
-        @click="handleClick"
-    >
-        Let's Go!
-    </button>
+    <Navigation />
     
 </div>
 </template>
@@ -17,10 +12,12 @@
 <script>
     import router from './../router';
 	import { mapGetters } from 'vuex';
+    import Navigation from './part/Navigation';
 
     export default {
         name: 'Intro',
         components: {
+            Navigation,
         },
         computed: {
 			...mapGetters([

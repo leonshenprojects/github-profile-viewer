@@ -1,16 +1,18 @@
 <template>
-    <div class="FormFooter">
-        <div class="FormFooter__buttons">
+    <div class="Navigation">
+        <div class="Navigation__buttons">
             <button
-                class="FormFooter__button FormFooter__button--back"
+                v-if="previousPage"
+                class="Navigation__button Navigation__button--back"
                 @click="handleBack"
             >
                 Back
             </button>
 
             <button
-                class="FormFooter__button"
-                type="submit"
+                v-if="nextPage"
+                class="Navigation__button"
+                :type="nextButtonType"
                 @click="handleNext"
             >
                 {{ nextButtonLabel }}
@@ -20,25 +22,29 @@
 </template>
 
 <script>
-    import router from './../router';
+    import router from '../../router';
 	import { mapGetters, mapMutations, mapState } from 'vuex';
 	
 	export default {
 		props: {
-			form: {
+			nextButtonType: {
 				type: String,
+                default: 'button',
 			},
 		},
         computed: {
 			...mapGetters([
                 'hasErrors',
                 'nextPage',
+                'previousPage',
 			]),
             ...mapState([
                 'currentPage',
             ]),
             nextButtonLabel() {
                 switch (this.currentPage) {
+                    case '/':
+                        return 'Let\'s go!';
                     case 'confirmation':
                         return 'Submit';
                     default:
@@ -52,7 +58,7 @@
             ]),
             handleBack() {
                 this.clearErrors();
-                router.go(-1);
+                router.push(this.previousPage);
             },
             async handleNext() {
                 if (this.$parent.$refs.form && !this.$parent.$refs.form.reportValidity()) {
@@ -64,8 +70,10 @@
 
                     if (isSuccess) {
                         router.push(this.nextPage);
+                        return
                     }
 
+                    router.push('details');
                     return;
                 }
 
@@ -76,10 +84,10 @@
 </script>
 
 <style lang="scss">
-    @import './../static/css/_mediaqueries.scss';
-    @import './../static/css/_variables.scss';
+    @import './../../static/css/_mediaqueries.scss';
+    @import './../../static/css/_variables.scss';
 
-    .FormFooter {
+    .Navigation {
         display: flex;
         justify-content: center;
         flex: 1;
@@ -90,15 +98,15 @@
 		}
     }
 
-    .FormFooter__buttons {
+    .Navigation__buttons {
         position: relative;
     }
 
-    .FormFooter__button {
+    .Navigation__button {
         background-color: lightblue;
     }
 
-    .FormFooter__button--back {
+    .Navigation__button--back {
         position: absolute;
         top: 0;
         right: 110%;

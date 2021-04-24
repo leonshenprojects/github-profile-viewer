@@ -25,7 +25,7 @@
 
             </FormItem>
 
-            <FormFooter />
+            <Navigation nextButtonType="submit" />
         </form>
     </div>
 </template>
@@ -33,15 +33,15 @@
 <script>
 	import { mapGetters, mapMutations, mapState } from 'vuex';
     import FormCheckbox from './../components/FormCheckbox';
-    import FormFooter from './../components/FormFooter';
     import FormInput from './../components/FormInput';
     import FormItem from './../components/FormItem';
+    import Navigation from './part/Navigation';
 
     export default {
         name: 'Confirmation',
         components: {
             FormCheckbox,
-            FormFooter,
+            Navigation,
             FormInput,
             FormItem,
         },

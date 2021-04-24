@@ -4,11 +4,11 @@ import Api from './utils/Api.js';
 
 Vue.use(Vuex)
 
-const pages = ['intro', 'details', 'confirmation', 'profile'];
+const pages = ['/', 'details', 'confirmation', 'profile'];
 
 export default new Vuex.Store({
     state: {
-        currentPage: 'intro',
+        currentPage: '/',
         data: {
             firstName: '',
             lastName: '',
@@ -17,10 +17,15 @@ export default new Vuex.Store({
             agreeWithTerms: false,
         },
         errors: [],
-        previousPage: null,
         profile: null,
     },
     mutations: {
+        addError(state, error) {
+            state.errors = [
+                ...state.errors,
+                error,
+            ];
+        },
         clearError(state, fieldName) {
             state.errors = state.errors.filter(error => error.fieldName !== fieldName);
         },
@@ -32,9 +37,6 @@ export default new Vuex.Store({
         },
 		setCurrentPage(state, step) {
 			state.currentPage = step;
-		},
-		setPreviousPage(state, step) {
-			state.previousPage = step;
 		},
         setProfile(state, profile) {
             if (profile.login !== state.data.username) {
@@ -49,14 +51,6 @@ export default new Vuex.Store({
                 ...newData,
             };
         },
-        validatePageData(state) {
-            if (state.currentPage === 'details') {
-                state.errors = [
-                    ...state.errors,
-                    ...compileErrors(state.data, ['firstName', 'lastName', 'username'])
-                ];
-            }
-        },
     },
     actions: {
 		fetchProfile: async ({ commit, state }) => {
@@ -66,13 +60,13 @@ export default new Vuex.Store({
                 const response = await Api.get(`https://api.github.com/users/${state.data.username}`);
                 commit('setProfile', response);
 
-                if (state.profile) {
-                    return true;
-                }
-
-                return false;
+                return true;
             } catch (e) {
-                console.log('Something has gone wrong. Please try again later.', e);
+                commit('addError', {
+                    fieldName: 'username',
+                    message: 'No match found for this username.',
+                });
+                
                 return false;
             }
 		},
@@ -107,21 +101,15 @@ export default new Vuex.Store({
 
             return pages[currentPageIndex + 1];
 		},
+        previousPage: (state) => {
+            const currentPageIndex = pages.findIndex(page => page === state.currentPage);
+
+            if (currentPageIndex < 1) {
+                return null;
+            }
+
+            return pages[currentPageIndex - 1];
+        },
     }
 });
 
-const compileErrors = (data, fieldNames) => {
-    return fieldNames.reduce((errors, fieldName) => {
-        if (!data[fieldName]) {
-            return [
-                ...errors,
-                {
-                    fieldName: fieldName,
-                    message: 'This first is required.',
-                }
-            ]
-        }
-
-        return errors;
-    }, []);
-}

@@ -32,13 +32,17 @@
         },
         watch: {
             '$route' (to) {
+                if (to.name === 'intro') {
+                    this.setCurrentPage('/');
+                    return;
+                }
+
                 this.setCurrentPage(to.name);
-                this.clearErrors();
             }
         },
         created() {
             if (this.$route.name === 'intro') {
-                this.setCurrentPage('intro');
+                this.setCurrentPage('/');
                 return;
             }
 

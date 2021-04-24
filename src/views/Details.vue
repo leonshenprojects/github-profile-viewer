@@ -30,29 +30,33 @@
             <FormItem
                 label-for="username"
                 label="Github Username"
+				:state="!hasErrorForField('username')"
+				:error="getErrorForField('username')"
             >
                 <FormInput
                     id="username"
                     v-model="username"
                     :required="true"
+					:state="!hasErrorForField('username')"
+					@input="clearError('username')"
                 />      
             </FormItem>
 
-            <FormFooter />
+            <Navigation />
         </form>
     </div>
 </template>
 
 <script>
 	import { mapGetters, mapMutations, mapState } from 'vuex';
-    import FormFooter from './../components/FormFooter';
     import FormInput from './../components/FormInput';
     import FormItem from './../components/FormItem';
+    import Navigation from './part/Navigation';
 
     export default {
         name: 'Details',
         components: {
-            FormFooter,
+            Navigation,
             FormInput,
             FormItem,
         },
