@@ -1,30 +1,23 @@
 <template>
-    <div class="FormItem">
-        <label
-			v-if="!!label"
-			class="FormItem__label"
-			:for="labelFor"
-		>
-            {{ label }}
+	<div class="FormItem">
+		<label v-if="!!label" class="FormItem__label" :for="labelFor">
+			{{ label }}
 		</label>
 
 		<div class="FormItem__content">
 			<slot />
 		</div>
 
-        <div
-            v-if="error"
-            class="FormItem__error"
-        >
-            <p> {{ error }} </p>
-        </div>
-    </div>
+		<div v-if="error" class="FormItem__error">
+			<p>{{ error }}</p>
+		</div>
+	</div>
 </template>
 
 <script>
-    export default {
-        name: 'FormItem',
-        props: {
+	export default {
+		name: 'FormItem',
+		props: {
 			error: {
 				type: String,
 				default: '',
@@ -37,39 +30,38 @@
 				type: String,
 				default: '',
 			},
-        }
-    }
+		},
+	};
 </script>
 
-
 <style lang="scss" scoped>
-    @import './../static/css/_mediaqueries.scss';
-    @import './../static/css/_variables.scss';
+	@import './../static/css/_mediaqueries.scss';
+	@import './../static/css/_variables.scss';
 
 	.FormItem + .FormItem {
 		margin-top: 25px;
-		
+
 		@media #{$tablet-up} {
 			margin-top: 40px;
 		}
 	}
-	
+
 	.FormItem__label {
 		display: block;
 		margin-bottom: 10px;
 		font-size: 16px;
-        font-weight: 600;
+		font-weight: 600;
 		line-height: 18px;
 		color: $black;
 	}
-	
+
 	.FormItem__content {
 		margin-bottom: 15px;
 		font-size: 16px;
 		line-height: 27px;
 	}
 
-    .FormItem__error {
-        color: $red;
-    }
+	.FormItem__error {
+		color: $red;
+	}
 </style>

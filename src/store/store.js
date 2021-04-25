@@ -1,59 +1,58 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 import { fetchProfile } from './actions.js';
 import {
-    getErrorForField,
-    hasErrorForField,
-    hasErrors,
-    hasNoData,
-    nextPage,
-    previousPage,
-} from './getters.js'
+	getErrorForField,
+	hasErrorForField,
+	hasErrors,
+	hasNoData,
+	nextPage,
+	previousPage,
+} from './getters.js';
 import {
-    setShowStep,
-    addError,
-    clearError,
-    clearProfile,
-    setCurrentPage,
-    setProfile,
-    updateData,
+	setShowStep,
+	addError,
+	clearError,
+	clearProfile,
+	setCurrentPage,
+	setProfile,
+	updateData,
 } from './mutations.js';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state: {
-        currentPage: '/',
-        data: {
-            firstName: '',
-            lastName: '',
-            username: '',
-            email: '',
-            agreeWithTerms: false,
-        },
-        errors: [],
-        profile: null,
-        showStep: false,
-    },
-    mutations: {
-        setShowStep,
-        addError,
-        clearError,
-        clearProfile,
+	state: {
+		currentPage: '/',
+		data: {
+			firstName: '',
+			lastName: '',
+			username: '',
+			email: '',
+			agreeWithTerms: false,
+		},
+		errors: [],
+		profile: null,
+		showStep: false,
+	},
+	mutations: {
+		setShowStep,
+		addError,
+		clearError,
+		clearProfile,
 		setCurrentPage,
-        setProfile,
-        updateData,
-    },
-    actions: {
+		setProfile,
+		updateData,
+	},
+	actions: {
 		fetchProfile,
-    },
-    getters: {
-        getErrorForField,
-        hasErrorForField,
-        hasErrors,
-        hasNoData,
+	},
+	getters: {
+		getErrorForField,
+		hasErrorForField,
+		hasErrors,
+		hasNoData,
 		nextPage,
-        previousPage,
-    }
+		previousPage,
+	},
 });
-

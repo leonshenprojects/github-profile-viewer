@@ -5,10 +5,10 @@ import store from './store/store.js';
 
 import './polyfills/reportValidity.js';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+	router,
+	store,
+	render: (h) => h(App),
+}).$mount('#app');

@@ -6,14 +6,11 @@
 			:id="id"
 			:name="name"
 			:checked="checked"
-            :required="required"
+			:required="required"
 			@change="$emit('change', $event.target.checked)"
 		/>
-		
-		<label
-			class="FormCheckbox__label"
-			:for="id"
-		>
+
+		<label class="FormCheckbox__label" :for="id">
 			{{ text }}
 		</label>
 	</div>
@@ -53,7 +50,7 @@
 	.FormCheckbox {
 		display: flex;
 	}
-	
+
 	.FormCheckbox__label {
 		cursor: pointer;
 		padding-left: 12px;
@@ -62,7 +59,7 @@
 		line-height: 20px;
 	}
 
-    .FormCheckbox__input {
-        margin-top: 3px;
-    }
+	.FormCheckbox__input {
+		margin-top: 3px;
+	}
 </style>

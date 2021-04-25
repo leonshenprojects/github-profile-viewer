@@ -43,11 +43,11 @@
 				default: null,
 			},
 		},
-	}
+	};
 </script>
 
 <style lang="scss" scoped>
-    @import './../static/css/_variables.scss';
+	@import './../static/css/_variables.scss';
 
 	.FormInput {
 		width: 100%;
@@ -58,8 +58,8 @@
 		border: 0;
 		border-bottom: 2px solid $black;
 		border-radius: 0;
-        outline: none;
-		
+		outline: none;
+
 		&.is-invalid {
 			border-color: $red;
 		}
